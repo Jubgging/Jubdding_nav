@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainFragment"
+        android:title="플로깅"
+        android:icon="@drawable/plogging"
+        />
+
+    <item
+        android:id="@+id/recordFragment"
+        android:title="기록"
+        android:icon="@drawable/time"
+        />
+
+</menu>
