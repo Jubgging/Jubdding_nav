@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "707322326081",
+    "project_id": "jubgging-nav",
+    "storage_bucket": "jubgging-nav.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707322326081:android:675c578a0de0d5f2286ac0",
+        "android_client_info": {
+          "package_name": "com.example.jubgging_nav"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707322326081-tpo4qlg44gcka9s499vco1dtuf7j4v0g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCgOVROf6WOCkgXl70g2gVxuUFELtvFjs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707322326081-tpo4qlg44gcka9s499vco1dtuf7j4v0g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
