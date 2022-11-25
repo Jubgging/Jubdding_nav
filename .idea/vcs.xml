@@ -2,8 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Jubdding_nav" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Jubdding_nav" vcs="" />
     <mapping directory="$PROJECT_DIR$/JubggingNavigation" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Jubgging_nav" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Jubgging_nav" vcs="" />
   </component>
 </project>
