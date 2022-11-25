@@ -10,22 +10,82 @@ import com.example.jubgging_nav.databinding.FragmentMapsBinding
 import com.example.jubgging_nav.databinding.FragmentRecordBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class PloggingMapsFragment : Fragment() {
-    private val callback = OnMapReadyCallback { googleMap ->
+class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    lateinit var mapView : MapView
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+
+
+    lateinit var binding: FragmentMapsBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMapsBinding.inflate(inflater, container, false)
+
+        mapView = binding.mapView as MapView
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
+
+
+        return binding.root
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        // 서울 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
+        val seoul = LatLng(37.566, 126.978)
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(seoul))
+        googleMap?.moveCamera(CameraUpdateFactory.zoomTo(10f))
+
+        val marker =
+            MarkerOptions()
+                .position(seoul)
+                .title("서울")
+                .snippet("아름다운 도시")
+        googleMap?.addMarker(marker)
+    }
+
+    override fun onStart() {
+        mapView.onStart()
+        super.onStart()
+    }
+
+    override fun onResume() {
+        mapView.onResume()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        mapView.onPause()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        mapView.onStop()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        mapView.onDestroy()
+        super.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        mapView.onLowMemory()
+        super.onLowMemory()
     }
 }
