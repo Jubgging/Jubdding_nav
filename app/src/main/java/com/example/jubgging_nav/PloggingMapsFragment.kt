@@ -21,12 +21,9 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var mapView : MapView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
-
 
     lateinit var binding: FragmentMapsBinding
 
