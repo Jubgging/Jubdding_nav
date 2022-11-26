@@ -12,18 +12,17 @@ import com.example.jubgging_nav.databinding.FragmentRecordBinding
 
 class MainFragment : Fragment() {
 
-    private var mBinding : FragmentMainBinding? = null
+    private var binding: FragmentMainBinding? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         val binding = FragmentMainBinding.inflate(inflater, container, false)
-        mBinding = binding
-        return mBinding?.root
+        return binding?.root
     }
 
     override fun onDestroyView() {
-        mBinding = null
+        binding = null
         super.onDestroyView()
     }
 
@@ -32,10 +31,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding?.btnPlogging?.setOnClickListener {
+        binding?.btnPlogging?.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_PloggingMapsFragment)
-
         }
     }
 }
+
 

@@ -10,7 +10,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var miBinding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Splash 화면
+        setTheme(R.style.SplashTheme)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_main)
 
         miBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(miBinding.root)
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         //바텀 네비게이션 뷰와 네비게이션의 연결 !
         NavigationUI.setupWithNavController(miBinding.myBottomNav, navController)
+
 
     }
 }
