@@ -1,11 +1,13 @@
 package com.example.jubgging_nav
 
+import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.example.jubgging_nav.databinding.FragmentMapsBinding
 import com.example.jubgging_nav.databinding.FragmentRecordBinding
 
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var mapView : MapView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,7 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
 
-        mapView = binding.mapView as MapView
+        mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
@@ -88,4 +91,21 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         mapView.onLowMemory()
         super.onLowMemory()
     }
+
+
+
+
+    /*
+    카메라 구현하기-> 카메라 권한 체크 후 카메라 권한 요청하고 권한요청에 따른 결과!
+     */
+
+    private fun checkPermission(): Boolean {
+        return (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED)
+    }
+
+
 }
