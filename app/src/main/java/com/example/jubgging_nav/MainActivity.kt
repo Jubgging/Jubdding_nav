@@ -14,14 +14,14 @@ import com.example.jubgging_nav.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    val REQUEST_PERMISSION = 11 // 카메라 권한 퍼미션
+    val REQUEST_CODE = 11 // 카메라 권한 퍼미션
 
-    private lateinit var miBinding : ActivityMainBinding
+    private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        miBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(miBinding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //네비게이션 담을 호스트가져오기
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         //바텀 네비게이션 뷰와 네비게이션의 연결 !
-        NavigationUI.setupWithNavController(miBinding.myBottomNav, navController)
+        NavigationUI.setupWithNavController(binding.myBottomNav, navController)
 
 
         // 카메라 권한체크
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
                 Toast.makeText(this, "이 앱을 실행하기 위해 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
             }
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_PERMISSION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE)
         }
     }
 

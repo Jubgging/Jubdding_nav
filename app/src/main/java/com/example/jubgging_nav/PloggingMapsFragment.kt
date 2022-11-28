@@ -1,10 +1,13 @@
 package com.example.jubgging_nav
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.jubgging_nav.databinding.FragmentMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -12,10 +15,17 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
+    var scoreNumber = 1
 
+    private val firebaseDatabase = FirebaseDatabase.getInstance()
+    private val databaseReference = firebaseDatabase.reference
 
 
     lateinit var binding: FragmentMapsBinding
@@ -24,7 +34,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -36,6 +45,7 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
 
+
         return binding.root
     }
 
@@ -45,6 +55,30 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapView as MapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
+        binding.btnCamera.setOnClickListener {
+            findNavController().navigate(R.id.action_PloggingMapsFragment_to_cameraFragment)
+        }
+
+
+        // 플로깅 점수 firebase 연동
+        val myScore = firebaseDatabase.getReference("Score")
+
+        myScore.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val value = snapshot.getValue()
+                binding.txtPloggingScore.text = "${value}점"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+        })
+
+        binding.btnStop.setOnClickListener {
+            myScore.removeValue()
+            findNavController().navigate(R.id.action_PloggingMapsFragment_to_recordFragment)
+        }
 
     }
 
