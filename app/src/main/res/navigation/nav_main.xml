@@ -29,7 +29,14 @@
         android:id="@+id/PloggingMapsFragment"
         android:name="com.example.jubgging_nav.PloggingMapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_PloggingMapsFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_PloggingMapsFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/staticsFragment"
         android:name="com.example.jubgging_nav.StaticsFragment"
@@ -47,6 +54,15 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_PloggingMapsFragment"
+            app:destination="@id/PloggingMapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.jubgging_nav.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_PloggingMapsFragment"
             app:destination="@id/PloggingMapsFragment" />
     </fragment>
 </navigation>
