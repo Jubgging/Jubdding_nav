@@ -37,42 +37,6 @@ class CameraFragment : Fragment() {
         return binding.root
     }
 
-    private fun openCameraInterface() {
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, R.string.take_picture)
-        values.put(MediaStore.Images.Media.DESCRIPTION, R.string.take_picture_description)
-        imageUri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-
-        // 카메라 인텐트 생성
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-
-        // 인텐트 실행
-        startActivityForResult(intent, IMAGE_CAPTURE_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // 카메라 인텐트 콜백
-        if (resultCode == Activity.RESULT_OK){
-            // Set image captured to image view
-            imageView?.setImageURI(imageUri)
-        }
-        else {
-            // Failed to take picture
-            showAlert("Failed to take camera picture")
-        }
-    }
-
-    private fun showAlert(message: String) {
-        val builder = AlertDialog.Builder(activity as Context)
-        builder.setMessage(message)
-        builder.setPositiveButton(R.string.ok_button_title, null)
-
-        val dialog = builder.create()
-        dialog.show()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,5 +61,44 @@ class CameraFragment : Fragment() {
             findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
         }
 
+    }
+
+
+
+    private fun openCameraInterface() {
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, R.string.take_picture)
+        values.put(MediaStore.Images.Media.DESCRIPTION, R.string.take_picture_description)
+        imageUri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
+        // 카메라 인텐트 생성
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+
+        // 인텐트 실행
+        startActivityForResult(intent, IMAGE_CAPTURE_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 카메라 인텐트 콜백
+        if (resultCode == Activity.RESULT_OK){
+            // 촬영성공시
+            imageView?.setImageURI(imageUri)
+        }
+        else {
+            // 촬영실패시 경고
+            showAlert("사진 촬영에 실패했습니다.")
+        }
+    }
+
+    private fun showAlert(message: String) {
+        val builder = AlertDialog.Builder(activity as Context)
+        builder.setMessage(message)
+        builder.setPositiveButton(R.string.ok_button_title, null)
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }
