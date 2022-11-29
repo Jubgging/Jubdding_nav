@@ -13,12 +13,6 @@
         <action
             android:id="@+id/action_recordFragment_to_calenderFragment"
             app:destination="@id/calenderFragment" />
-        <action
-            android:id="@+id/action_recordFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_recordFragment_to_staticsFragment2"
-            app:destination="@id/staticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/calenderFragment"
@@ -37,16 +31,6 @@
             android:id="@+id/action_PloggingMapsFragment_to_recordFragment"
             app:destination="@id/recordFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/staticsFragment"
-        android:name="com.example.jubgging_nav.StaticsFragment"
-        android:label="fragment_statics"
-        tools:layout="@layout/fragment_statics" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.jubgging_nav.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.jubgging_nav.MainFragment"
