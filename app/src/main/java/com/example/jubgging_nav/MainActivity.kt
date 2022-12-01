@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
+import android.window.SplashScreen
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,7 +19,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Jubgging_nav)
         super.onCreate(savedInstanceState)
+
+        // splash activity 없이 screen 구현
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //권한 확인
+    // 지도 위치 권한 확인
     fun checkPermission() {
         val permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
         val permissionRead =
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         //권한이 없으면 권한 요청
         if (permissionCamera != PackageManager.PERMISSION_GRANTED || permissionRead != PackageManager.PERMISSION_GRANTED || permissionWrite != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                Toast.makeText(this, "이 앱을 실행하기 위해 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "앱을 실행하기 위해 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
             }
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE)
         }

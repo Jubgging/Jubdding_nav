@@ -63,8 +63,6 @@ class CameraFragment : Fragment() {
 
     }
 
-
-
     private fun openCameraInterface() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, R.string.take_picture)

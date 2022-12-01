@@ -25,31 +25,28 @@ import kotlin.concurrent.timer
 
 
 class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
-    var scoreNumber = 1
 
+    var scoreNumber = 1
+    // firebase
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
-
-    // onAttach() 콜백메서드에서 Context를 MainActivity로 형변환하여 할당
-
-     lateinit var mainActivity: MainActivity // context를 할당할 변수를 프로퍼티로 선언
-     override fun onAttach(context: Context) {
-         super.onAttach(context)
-         mainActivity = context as MainActivity
-         // mainActivity.runOnUIThread 이런식으로 사용하면 된다..
-     }
-
+    // timer
     private var time = 0
     private var timerTask:Timer? = null
-
+    // google map View
     lateinit var binding: FragmentMapsBinding
     lateinit var mapView: MapView
 
+    // onAttach() 콜백메서드에서 Context를 MainActivity로 형변환하여 할당
+     lateinit var mainActivity: MainActivity // context를 할당할 프로퍼티 선언
+     override fun onAttach(context: Context) {
+         super.onAttach(context)
+         mainActivity = context as MainActivity
+     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +54,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -70,11 +66,9 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
         timeClickEvent()
 
-
         binding.btnCamera.setOnClickListener {
             findNavController().navigate(R.id.action_PloggingMapsFragment_to_cameraFragment)
         }
-
 
         // 플로깅 점수 firebase 연동
         val myScore = firebaseDatabase.getReference("Score")
@@ -98,8 +92,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-
-
     // 스탑워치
     private fun timeClickEvent() {
         binding.btnPause.setOnClickListener{
@@ -114,12 +106,13 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
     override fun onMapReady(googleMap: GoogleMap) {
         // 서울 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
         val seoul = LatLng(37.566, 126.978)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLng(seoul))
         googleMap?.moveCamera(CameraUpdateFactory.zoomTo(10f))
-
+        // 마커 옵션
         val marker =
             MarkerOptions()
                 .position(seoul)
