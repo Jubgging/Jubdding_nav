@@ -55,22 +55,8 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        setFABClickEvent()
     }
 
-    private fun setFABClickEvent() {
-        binding.fab.setOnClickListener{
-            timerTask = timer(period = 10){
-                time++
-                val sec = time / 100
-                val milli = time % 100
-                mainActivity.runOnUiThread{
-                    binding.txtSet.text ="$sec"
-                    binding.txtMill.text = "$milli"
-                }
-            }
-        }
-    }
     override fun onMapReady(googleMap: GoogleMap) {
         // 서울 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
         val seoul = LatLng(37.566, 126.978)
