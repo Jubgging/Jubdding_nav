@@ -25,7 +25,7 @@ import kotlin.concurrent.timer
 
 
 class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
-    var scoreNumber = 1
+
 
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
@@ -77,11 +77,11 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
 
         // 플로깅 점수 firebase 연동
-        val myScore = firebaseDatabase.getReference("Score")
+        val myScore = firebaseDatabase.getReference("User").child(MainFragment().i.toString()).child("score")
 
         myScore.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val value = snapshot.getValue()
+                val value  = snapshot.value
                 binding.txtPloggingScore.text = "${value}점"
             }
 
@@ -91,7 +91,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         })
 
         binding.btnStop.setOnClickListener {
-            myScore.removeValue()
             findNavController().navigate(R.id.action_PloggingMapsFragment_to_recordFragment)
         }
 
