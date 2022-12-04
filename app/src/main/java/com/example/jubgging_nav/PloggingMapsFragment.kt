@@ -36,6 +36,26 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+    }
+
+    //타이머 작동
+    private fun startTimer() {
+        timerTask = timer(period = 10) {
+            time++
+
+            val min = time / 6000
+            val sec = (time % 6000) / 100
+
+            mainActivity.runOnUiThread {
+                binding.txtTime.text = "$min : $sec"
+
+            }
+        }
+    }
+    //타이머 멈춤
+    private fun stopTimer(){
+        timerTask?.cancel()
     }
 
 
@@ -44,6 +64,7 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentMapsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -55,6 +76,12 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        binding.btnStart.setOnClickListener {
+            startTimer()
+        }
+        binding.btnStop.setOnClickListener {
+            stopTimer()
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
