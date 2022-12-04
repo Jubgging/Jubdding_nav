@@ -124,31 +124,12 @@
                 android:layout_marginBottom="75dp"
                 app:srcCompat="@drawable/grayrectangle" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="127dp"
-                android:layout_alignTop="@+id/imageView3"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="282dp"
-                app:srcCompat="@drawable/whiterec" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="88dp"
-                android:layout_height="88dp"
-                android:layout_alignTop="@+id/imageView4"
-                android:layout_alignBottom="@+id/imageView4"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="16dp"
-                android:layout_toStartOf="@+id/imageView7"
-                app:srcCompat="@drawable/graycircle" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plogging"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="200dp"
+                android:layout_marginBottom="75dp" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -163,18 +144,6 @@
                 android:text="산책 내역"
                 android:textColor="#000000"
                 android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="88dp"
-                android:layout_height="88dp"
-                android:layout_alignTop="@+id/imageView4"
-                android:layout_alignEnd="@+id/imageView4"
-                android:layout_alignBottom="@+id/imageView4"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="16dp"
-                app:srcCompat="@drawable/graycircle" />
 
             <TextView
                 android:id="@+id/textView4"
