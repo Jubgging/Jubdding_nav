@@ -15,7 +15,7 @@ class PloggingListAdapter(private val context: LifecycleOwner) : RecyclerView.Ad
 
     class ViewHolder(val binding: ItemPloggingBinding) : RecyclerView.ViewHolder(binding.root) {
         val time = binding.txtRecTime
-        val score = binding.txtRecScore
+        var score = binding.txtRecScore
 
     }
 

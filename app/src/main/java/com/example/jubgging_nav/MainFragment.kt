@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.jubgging_nav.databinding.FragmentMainBinding
 import com.example.jubgging_nav.databinding.FragmentRecordBinding
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,8 +30,10 @@ class MainFragment : Fragment() {
         var lon = "126.785823"
     }
 
-
+    var i = 1
     lateinit var binding: FragmentMainBinding
+    private val firebaseDatabase = FirebaseDatabase.getInstance()
+    private val databaseReference = firebaseDatabase.reference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,9 @@ class MainFragment : Fragment() {
 
         binding.btnPlogging.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_PloggingMapsFragment)
+            // firebase chile 생성
+            databaseReference.child("User").child(i.toString()).child("score").setValue(User().score)
+            databaseReference.child("User").child(i++.toString()).child("time").setValue(User().time)
 
         }
 
