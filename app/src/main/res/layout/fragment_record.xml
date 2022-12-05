@@ -55,30 +55,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.303" />
 
-        <ImageView
-            android:id="@+id/btn_statics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/statics" />
-
-        <ImageView
-            android:id="@+id/btn_calender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="640dp"
-            android:src="@drawable/calender"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_statics"
-            app:layout_constraintStart_toEndOf="@+id/btn_profile"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="409dp"
@@ -86,8 +62,7 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_calender">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/textView5"
@@ -145,45 +120,6 @@
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/imageView3"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="139dp"
-                android:layout_marginBottom="40dp"
-                android:text="시간" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/imageView3"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="69dp"
-                android:layout_marginTop="139dp"
-                android:layout_marginBottom="40dp"
-                android:layout_toEndOf="@+id/textView4"
-                android:text="플로깅 점수"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/imageView3"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="138dp"
-                android:layout_marginEnd="48dp"
-                android:layout_marginBottom="40dp"
-                android:layout_toEndOf="@+id/textView8"
-                android:text="칼로리" />
         </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
