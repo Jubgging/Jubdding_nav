@@ -20,7 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
+var i = 1
+var score = 0
 class MainFragment : Fragment() {
 
     companion object{
@@ -30,7 +31,6 @@ class MainFragment : Fragment() {
         var lon = "126.785823"
     }
 
-    var i = 1
     lateinit var binding: FragmentMainBinding
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
@@ -56,7 +56,7 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_PloggingMapsFragment)
             // firebase chile 생성
             databaseReference.child("User").child(i.toString()).child("score").setValue(User().score)
-            databaseReference.child("User").child(i++.toString()).child("time").setValue(User().time)
+            databaseReference.child("User").child(i.toString()).child("time").setValue(User().time)
 
         }
 

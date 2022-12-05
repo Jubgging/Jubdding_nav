@@ -53,8 +53,8 @@ class CameraFragment : Fragment() {
 
        binding.btnPictureYes.setOnClickListener {
             // firebase에 score 1 추가 후 plogging화면전환
-           databaseReference.child("User").child(MainFragment().i.toString()).child("score").setValue(User().score)
-            //findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
+           databaseReference.child("User").child(i.toString()).child("score").setValue(++score)
+           findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
         }
 
         binding.btnPictureNo.setOnClickListener {
