@@ -26,7 +26,7 @@ import kotlin.concurrent.timer
 
 class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
-
+    private lateinit var ploggingTime : String // 플로깅 시간
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
 
@@ -58,7 +58,8 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
             val sec = (time % 6000) / 100
 
             mainActivity.runOnUiThread {
-                binding.txtTime.text = "$min : $sec"
+                ploggingTime = "$min 분 $sec 초"
+                binding.txtTime.text = ploggingTime
 
             }
         }
@@ -90,9 +91,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         binding.btnStart.setOnClickListener {
             startTimer()
         }
-        binding.btnStop.setOnClickListener {
-            stopTimer()
-        }
 
 
 
@@ -102,7 +100,7 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
 
             // 플로깅 점수 firebase 연동
-            val myScore = firebaseDatabase.getReference("User").child(MainFragment().i.toString())
+            val myScore = firebaseDatabase.getReference("User").child(i.toString())
                 .child("score")
 
             myScore.addValueEventListener(object : ValueEventListener {
@@ -117,14 +115,14 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
             })
 
             binding.btnStop.setOnClickListener {
+                databaseReference.child("User").child(i++.toString()).child("time").setValue(ploggingTime)
                 findNavController().navigate(R.id.action_PloggingMapsFragment_to_recordFragment)
+                score = 0
             }
 
 
         }
 
-
-        // 스탑워치
 
         override fun onMapReady(googleMap: GoogleMap) {
             // 서울 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
