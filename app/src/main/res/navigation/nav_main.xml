@@ -26,12 +26,13 @@
         tools:layout="@layout/fragment_maps" >
         <action
             android:id="@+id/action_PloggingMapsFragment_to_cameraFragment"
-            app:destination="@id/cameraFragment" />
+            app:destination="@id/cameraFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_PloggingMapsFragment_to_recordFragment"
             app:destination="@id/recordFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -40,13 +41,18 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_PloggingMapsFragment"
-            app:destination="@id/PloggingMapsFragment" />
+            app:destination="@id/PloggingMapsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.example.jubgging_nav.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_recordFragment"
+            app:destination="@id/recordFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_cameraFragment_to_PloggingMapsFragment"
             app:destination="@id/PloggingMapsFragment"
