@@ -29,7 +29,9 @@
             app:destination="@id/cameraFragment" />
         <action
             android:id="@+id/action_PloggingMapsFragment_to_recordFragment"
-            app:destination="@id/recordFragment" />
+            app:destination="@id/recordFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -47,6 +49,8 @@
         tools:layout="@layout/fragment_camera" >
         <action
             android:id="@+id/action_cameraFragment_to_PloggingMapsFragment"
-            app:destination="@id/PloggingMapsFragment" />
+            app:destination="@id/PloggingMapsFragment"
+            app:popUpTo="@id/PloggingMapsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
