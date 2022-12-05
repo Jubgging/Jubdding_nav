@@ -23,8 +23,6 @@ class PloggingsRepository {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
 
-                    listData.clear() // 실시간 데이터 업데이트 시 리사이클러뷰 데이터 중복방지
-
                     for (userSnapshot in snapshot.children) {
 
                         val getData = userSnapshot.getValue(User::class.java)
