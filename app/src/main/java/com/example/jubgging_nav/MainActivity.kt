@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -24,7 +25,12 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val navController = binding.myNavHost.getFragment<NavHostFragment>().navController
-        setupActionBarWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.mainFragment)
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // 바텀 네이게이션 동작
         binding.myBottomNav.setupWithNavController(navController)
         setContentView(binding.root)
 
@@ -43,8 +49,13 @@ class MainActivity : AppCompatActivity() {
         checkPermission() //권한체크
 
     }
+    // 상단바 뒤로가기 버튼생성
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = binding.myNavHost.getFragment<NavHostFragment>().navController
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 
-    //권한 확인
+    // 카메라 권한 확인
     fun checkPermission() {
         val permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
         val permissionRead =
@@ -67,6 +78,8 @@ class MainActivity : AppCompatActivity() {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+
 
 
 

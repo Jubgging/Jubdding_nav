@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.jubgging_nav.databinding.FragmentCameraBinding
 import com.google.firebase.database.FirebaseDatabase
@@ -51,8 +53,8 @@ class CameraFragment : Fragment() {
 
        binding.btnPictureYes.setOnClickListener {
             // firebase에 score 1 추가 후 plogging화면전환
-           databaseReference.child("User").child(MainFragment().i.toString()).child("score").setValue(User().score.plus(1))
-            findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
+           databaseReference.child("User").child(MainFragment().i.toString()).child("score").setValue(User().score)
+            //findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
         }
 
         binding.btnPictureNo.setOnClickListener {
