@@ -31,7 +31,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
     private val databaseReference = firebaseDatabase.reference
 
     // onAttach() 콜백메서드에서 Context를 MainActivity로 형변환하여 할당
-
     lateinit var mainActivity: MainActivity // context를 할당할 변수를 프로퍼티로 선언
     override fun onAttach(context: Context) {
         super.onAttach(context)
