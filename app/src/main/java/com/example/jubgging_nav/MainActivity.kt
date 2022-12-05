@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.jubgging_nav.databinding.ActivityMainBinding
 
 
@@ -21,24 +24,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+        val navController = binding.myNavHost.getFragment<NavHostFragment>().navController
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.mainFragment)
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // 바텀 네이게이션 동작
+        binding.myBottomNav.setupWithNavController(navController)
         setContentView(binding.root)
 
-        //네비게이션 담을 호스트가져오기
+
+       /* //네비게이션 담을 호스트가져오기
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
 
         //네비게이션 컨트롤러
         val navController = navHostFragment.navController
 
         //바텀 네비게이션 뷰와 네비게이션의 연결 !
-        NavigationUI.setupWithNavController(binding.myBottomNav, navController)
+        NavigationUI.setupWithNavController(binding.myBottomNav, navController) */
 
 
         // 카메라 권한체크
         checkPermission() //권한체크
 
     }
+    // 상단바 뒤로가기 버튼생성
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = binding.myNavHost.getFragment<NavHostFragment>().navController
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 
-    //권한 확인
+    // 카메라 권한 확인
     fun checkPermission() {
         val permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
         val permissionRead =
@@ -61,6 +78,8 @@ class MainActivity : AppCompatActivity() {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+
 
 
 

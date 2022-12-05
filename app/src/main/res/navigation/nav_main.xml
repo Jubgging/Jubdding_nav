@@ -8,45 +8,42 @@
     <fragment
         android:id="@+id/recordFragment"
         android:name="com.example.jubgging_nav.RecordFragment"
-        android:label="fragment_record"
-        tools:layout="@layout/fragment_record" >
-        <action
-            android:id="@+id/action_recordFragment_to_calenderFragment"
-            app:destination="@id/calenderFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/calenderFragment"
-        android:name="com.example.jubgging_nav.CalenderFragment"
-        android:label="fragment_calender"
-        tools:layout="@layout/fragment_calender" />
+        android:label="줍깅 기록지"
+        tools:layout="@layout/fragment_record" />
     <fragment
         android:id="@+id/PloggingMapsFragment"
         android:name="com.example.jubgging_nav.PloggingMapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
+        android:label="줍깅중"
+        tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_PloggingMapsFragment_to_cameraFragment"
-            app:destination="@id/cameraFragment" />
+            app:destination="@id/cameraFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_PloggingMapsFragment_to_recordFragment"
             app:destination="@id/recordFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.jubgging_nav.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="줍깅에 온걸 환영해요"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_PloggingMapsFragment"
-            app:destination="@id/PloggingMapsFragment" />
+            app:destination="@id/PloggingMapsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.example.jubgging_nav.CameraFragment"
-        android:label="fragment_camera"
-        tools:layout="@layout/fragment_camera" >
+        android:label="쓰레기를 찍어주세요"
+        tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/action_cameraFragment_to_recordFragment"
+            app:destination="@id/recordFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_cameraFragment_to_PloggingMapsFragment"
             app:destination="@id/PloggingMapsFragment"
