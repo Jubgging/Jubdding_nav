@@ -26,7 +26,7 @@ class PloggingListAdapter(private val context: LifecycleOwner) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // 실제 출력할 데이터
         val user: User = userList[position]
-        holder.score.text = user.score.toString()
+        holder.score.text = "${user.score}개나 플로깅하셨네요!"
         holder.time.text = user.time
     }
 

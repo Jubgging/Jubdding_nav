@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
 
         // 날씨 구현
 
-        //Create Retrofit Builder
+        //Retrofit Builder
         val retrofit = Retrofit.Builder()
             .baseUrl(BaseUrl)
             .addConverterFactory(GsonConverterFactory.create())
