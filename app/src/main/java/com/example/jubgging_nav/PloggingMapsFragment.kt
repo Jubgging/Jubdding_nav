@@ -1,12 +1,19 @@
 package com.example.jubgging_nav
 
+import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.jubgging_nav.databinding.FragmentMapsBinding
@@ -28,6 +35,13 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var binding: FragmentMapsBinding
     private lateinit var ploggingTime : String // 플로깅 시간
+
+
+    // 현재위치정보 받아오기
+    var mLocationManager : LocationManager ?= null
+    var mLocationListener : LocationListener ?= null
+
+    // onAttach() 콜백메서드에서 Context를 MainActivity로 형변환하여 할당
 
     lateinit var mainActivity: MainActivity
 
@@ -62,11 +76,6 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    //타이머 멈춤
-    private fun stopTimer() {
-        timerTask?.cancel()
-    }
-
     lateinit var mapView: MapView
 
 
@@ -80,6 +89,27 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mLocationManager = mainActivity.getSystemService(LOCATION_SERVICE) as LocationManager
+        mLocationListener = object : LocationListener {
+            override fun onLocationChanged(location : Location) {
+                var lat = 0.0
+                var lng = 0.0
+                if (location != null) {
+                    lat = location.latitude
+                    lng = location.longitude
+                    Log.d("현재 위도와 경도는", "위도 : ${lat}, 경도 : ${lng} 입니다.")
+                }
+                var currentLocation = LatLng(lat, lng)
+                mapView.getMapAsync {
+                    it!!.addMarker(MarkerOptions().position(currentLocation).title("현재위치"))
+                    it!!.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
+                }
+
+            }
+        }
+    }
     private val firebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference = firebaseDatabase.reference
 
@@ -91,8 +121,14 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         binding.btnStart.setOnClickListener {
+            nowPlace()
             startTimer()
-        }
+
+
+            }
+
+
+
 
 
         binding.btnCamera.setOnClickListener {
@@ -123,11 +159,13 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
     }
 
 
+
     override fun onMapReady(googleMap: GoogleMap) {
         // 고양시 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
         val seoul = LatLng(37.599, 126.865)
         googleMap?.moveCamera(CameraUpdateFactory.newLatLng(seoul))
-        googleMap?.moveCamera(CameraUpdateFactory.zoomTo(10f))
+        googleMap?.moveCamera(CameraUpdateFactory.zoomTo(15f))
+
 
         val marker =
             MarkerOptions()
@@ -161,6 +199,29 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         mapView.onDestroy()
         super.onDestroy()
     }
+
+
+    // 현재위치 업데이트
+    fun nowPlace() {
+        if (ContextCompat.checkSelfPermission(
+                mainActivity,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                mainActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mLocationManager!!.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                3000L,
+                30f,
+                mLocationListener!!
+            )
+        }
+
+    }
+
+
 
     override fun onLowMemory() {
         mapView.onLowMemory()
