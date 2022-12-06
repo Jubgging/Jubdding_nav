@@ -11,8 +11,7 @@ data class User(val time: String = "None", var score: Long = 0) {
     }
 }
 
-
-class PloggingViewModel : ViewModel() {
+class PloggingViewModel : ViewModel() { //안드로이드 livecyle의 viewmodel 상속 받아서 씀
     private val repo = PloggingsRepository()
 
     fun fetchData(): LiveData<MutableList<User>> {
@@ -24,6 +23,4 @@ class PloggingViewModel : ViewModel() {
         }
         return mutableData
     }
-
-
 }

@@ -30,6 +30,7 @@ class CameraFragment : Fragment() {
     private var imageUri: Uri? = null
     private var imageView: ImageView? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +52,7 @@ class CameraFragment : Fragment() {
                 openCameraInterface()
         }
 
-       binding.btnPictureYes.setOnClickListener {
+        binding.btnPictureYes.setOnClickListener {
             // firebase에 score 1 추가 후 plogging화면전환
            databaseReference.child("User").child(i.toString()).child("score").setValue(++score)
            findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
@@ -62,9 +63,8 @@ class CameraFragment : Fragment() {
             findNavController().navigate(R.id.action_cameraFragment_to_PloggingMapsFragment)
         }
 
+
     }
-
-
 
     private fun openCameraInterface() {
         val values = ContentValues()
