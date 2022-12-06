@@ -11,7 +11,6 @@ data class User(val time: String = "None", var score: Long = 0) {
     }
 }
 
-
 class PloggingViewModel : ViewModel() { //안드로이드 livecyle의 viewmodel 상속 받아서 씀
     private val repo = PloggingsRepository()
 
@@ -25,16 +24,3 @@ class PloggingViewModel : ViewModel() { //안드로이드 livecyle의 viewmodel 
         return mutableData
     }
 }
-
-/*
-* class MbtiViewModel: ViewModel() {
-*   private val _mbti = MutableLiveData<String>(초기화값)
-*   val mbti : LiveData<String> get() = _mbti ** 밖에서 데이터 함부로 건들지 못하게 정보 은닉
-*
-*
-*
-*
-*
-*
-*
-* */

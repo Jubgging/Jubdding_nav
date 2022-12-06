@@ -26,28 +26,25 @@ import kotlin.concurrent.timer
 
 class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
+    lateinit var binding: FragmentMapsBinding
     private lateinit var ploggingTime : String // 플로깅 시간
-    private val firebaseDatabase = FirebaseDatabase.getInstance()
-    private val databaseReference = firebaseDatabase.reference
 
-    // onAttach() 콜백메서드에서 Context를 MainActivity로 형변환하여 할당
-    lateinit var mainActivity: MainActivity // context를 할당할 변수를 프로퍼티로 선언
-    override fun onAttach(context: Context) {
+    lateinit var mainActivity: MainActivity
+
+    override fun onAttach(context: Context) { //Context 할당
         super.onAttach(context)
         mainActivity = context as MainActivity
-        // mainActivity.runOnUIThread 이런식으로 사용하면 된다..
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+
     }
 
     private var time = 0
     private var timerTask: Timer? = null
-
-    lateinit var binding: FragmentMapsBinding
-    lateinit var mapView: MapView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     //타이머 작동
     private fun startTimer() {
@@ -70,6 +67,8 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         timerTask?.cancel()
     }
 
+    lateinit var mapView: MapView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,6 +79,9 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
 
         return binding.root
     }
+
+    private val firebaseDatabase = FirebaseDatabase.getInstance()
+    private val databaseReference = firebaseDatabase.reference
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,81 +95,76 @@ class PloggingMapsFragment : Fragment(), OnMapReadyCallback {
         }
 
 
+        binding.btnCamera.setOnClickListener {
+            findNavController().navigate(R.id.action_PloggingMapsFragment_to_cameraFragment)
+        }
 
-            binding.btnCamera.setOnClickListener {
-                findNavController().navigate(R.id.action_PloggingMapsFragment_to_cameraFragment)
+
+        // 플로깅 점수 firebase 연동
+        val myScore = firebaseDatabase.getReference("User").child(i.toString())
+            .child("score")
+
+        myScore.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val value = snapshot.value
+                binding.txtPloggingScore.text = "${value}점"
             }
 
-
-            // 플로깅 점수 firebase 연동
-            val myScore = firebaseDatabase.getReference("User").child(i.toString())
-                .child("score")
-
-            myScore.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val value = snapshot.value
-                    binding.txtPloggingScore.text = "${value}점"
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w(TAG, "FireBase 연동에 실패했습니다..", error.toException())
-                }
-            })
-
-            binding.btnStop.setOnClickListener {
-                databaseReference.child("User").child(i++.toString()).child("time").setValue(ploggingTime)
-                findNavController().navigate(R.id.action_PloggingMapsFragment_to_recordFragment)
-                score = 0
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(TAG, "FireBase 연동에 실패했습니다..", error.toException())
             }
+        })
 
-
+        binding.btnStop.setOnClickListener {
+            databaseReference.child("User").child(i++.toString()).child("time").setValue(ploggingTime)
+            findNavController().navigate(R.id.action_PloggingMapsFragment_to_recordFragment)
+            score = 0
         }
+    }
 
 
-        override fun onMapReady(googleMap: GoogleMap) {
-            // 서울 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
-            val seoul = LatLng(37.566, 126.978)
-            googleMap?.moveCamera(CameraUpdateFactory.newLatLng(seoul))
-            googleMap?.moveCamera(CameraUpdateFactory.zoomTo(10f))
+    override fun onMapReady(googleMap: GoogleMap) {
+        // 고양시 좌표 입력 후 카메라를 서울로 이동 시키고 10f 수준으로 줌시킴
+        val seoul = LatLng(37.599, 126.865)
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(seoul))
+        googleMap?.moveCamera(CameraUpdateFactory.zoomTo(10f))
 
-            val marker =
-                MarkerOptions()
-                    .position(seoul)
-                    .title("서울")
-                    .snippet("아름다운 도시")
-            googleMap?.addMarker(marker)
-        }
+        val marker =
+            MarkerOptions()
+                .position(seoul)
+                .title("경기도 고양시")
+                .snippet("한국항공대학교")
+        googleMap?.addMarker(marker)
+    }
 
-        override fun onStart() {
-            mapView.onStart()
-            super.onStart()
-        }
+    override fun onStart() {
+        mapView.onStart()
+        super.onStart()
+    }
 
-        override fun onResume() {
-            mapView.onResume()
-            super.onResume()
-        }
+    override fun onResume() {
+        mapView.onResume()
+        super.onResume()
+    }
 
-        override fun onPause() {
-            mapView.onPause()
-            super.onPause()
-        }
+    override fun onPause() {
+        mapView.onPause()
+        super.onPause()
+    }
 
-        override fun onStop() {
-            mapView.onStop()
-            super.onStop()
-        }
+    override fun onStop() {
+        mapView.onStop()
+        super.onStop()
+    }
 
-        override fun onDestroy() {
-            mapView.onDestroy()
-            super.onDestroy()
-        }
+    override fun onDestroy() {
+        mapView.onDestroy()
+        super.onDestroy()
+    }
 
-        override fun onLowMemory() {
-            mapView.onLowMemory()
-            super.onLowMemory()
-        }
-
-
+    override fun onLowMemory() {
+        mapView.onLowMemory()
+        super.onLowMemory()
+    }
 
 }

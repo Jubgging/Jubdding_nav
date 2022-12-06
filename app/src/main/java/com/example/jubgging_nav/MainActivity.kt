@@ -17,9 +17,9 @@ import com.example.jubgging_nav.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    val REQUEST_CODE = 11 // 카메라 권한 퍼미션
 
     private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,26 +35,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-       /* //네비게이션 담을 호스트가져오기
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
-
-        //네비게이션 컨트롤러
-        val navController = navHostFragment.navController
-
-        //바텀 네비게이션 뷰와 네비게이션의 연결 !
-        NavigationUI.setupWithNavController(binding.myBottomNav, navController) */
-
-
         // 카메라 권한체크
         checkPermission() //권한체크
-
     }
+
+    /*private fun setNav() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navigator = KeepStateFragment(this, navHostFragment.childFragmentManager, R.id.my_nav_host)
+        navController.navigatorProvider.addNavigator(navigator)
+        navController.setGraph(R.navigation.nav_main)
+        binding.myBottomNav.setupWithNavController(navController)
+    }*/
+
     // 상단바 뒤로가기 버튼생성
     override fun onSupportNavigateUp(): Boolean {
         val navController = binding.myNavHost.getFragment<NavHostFragment>().navController
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    val REQUEST_CODE = 11 // 카메라 권한 퍼미션
     // 카메라 권한 확인
     fun checkPermission() {
         val permissionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
